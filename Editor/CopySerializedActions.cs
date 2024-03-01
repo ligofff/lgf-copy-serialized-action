@@ -4,14 +4,12 @@ public static class CopySerializedActions
 {
     static SerializedObject _operationSource;
 
-    [MenuItem("CONTEXT/Component/Copy Serialized Values")]
-    public static void CopySerializedFromBase(MenuCommand command)
+    private static void Copy(MenuCommand command)
     {
         _operationSource = new SerializedObject(command.context);
     }
 
-    [MenuItem("CONTEXT/Component/Paste Serialized Values")]
-    public static void PasteSerializedFromBase(MenuCommand command)
+    private static void Paste(MenuCommand command)
     {
         SerializedObject dest = new SerializedObject(command.context);
         
@@ -33,5 +31,30 @@ public static class CopySerializedActions
         dest.ApplyModifiedProperties();
         
         EditorUtility.SetDirty(dest.targetObject);
+    }
+    
+
+    [MenuItem("CONTEXT/Component/Copy Serialized Values")]
+    public static void CopySerializedFromBase(MenuCommand command)
+    {
+        Copy(command);
+    }
+
+    [MenuItem("CONTEXT/Component/Paste Serialized Values")]
+    public static void PasteSerializedFromBase(MenuCommand command)
+    {
+        Paste(command);
+    }
+    
+    [MenuItem("CONTEXT/ScriptableObject/Copy Serialized Values")]
+    public static void CopyObjectSerializedFromBase(MenuCommand command)
+    {
+        Copy(command);
+    }
+
+    [MenuItem("CONTEXT/ScriptableObject/Paste Serialized Values")]
+    public static void PasteObjectSerializedFromBase(MenuCommand command)
+    {
+        Paste(command);
     }
 }
